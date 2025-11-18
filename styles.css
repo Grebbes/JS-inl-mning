@@ -1,0 +1,19 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.fullscreen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.player-window {
+    height: 350px;
+    width: 600px;
+    border: solid black 2px;
+    border-radius: 15px;
+    justify-content: center;
+}
