@@ -23,6 +23,18 @@ const goldText = document.querySelector("#gold-Text");
 const monsterStats = document.querySelector("#monsterstats");
 const monsterHealthText = document.querySelector("#monster-Health");
 const monsterNameText = document.querySelector("#monster-Name");
+const weapons = [
+  { name: "Stick", power: 10 },
+  { name: "Rusty sword", power: 15 },
+  { name: "Claymore", power: 30 },
+  { name: "Sword of Heroes", power: 50 },
+];
+const monsters = [
+  { name: "Rabid beast", level: 3, health: 25 },
+  { name: "Orc raider", level: 7, health: 50 },
+  { name: "Orc shaman", level: 12, health: 70 },
+  { name: "Orc warlord", level: 20, health: 200 },
+];
 
 button2.addEventListener("click", () => {
   let changeBackground = document.body;
@@ -30,7 +42,7 @@ button2.addEventListener("click", () => {
 
   if (changeBackground.classList.contains("fullscreen2")) {
     text.innerText =
-      "You turn around and leave the Town to it's fate, letting it burn to the ground and leaving the villagers without a home";
+      "You turn around and leave the Town to it's fate, letting it burn to the ground and leaving the villagers without a home.";
     button1.innerText = "Restart";
     button2.innerText = "Restart";
   } else {
