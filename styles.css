@@ -3,18 +3,16 @@
   padding: 0;
   font-family: cursive;
 }
-body.fullscreen2 {
-  background-image: url(Images/while\ burning.png);
-  transition: 2s;
-}
 
 body {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-image: url(Images/before\ burning.png);
-  transition: 2s;
+  width: 100vw;
+  background-image: url(Images/image1.png);
+  transition: 1.5s;
+  background-size: cover;
 }
 
 .player-window {
