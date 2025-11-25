@@ -44,12 +44,14 @@ body {
 }
 
 #monsterstats {
-  display: none; /* put display none later */
   justify-content: space-evenly;
   border-bottom: 2px solid rgb(135, 68, 26);
   padding-block: 10px;
   background-color: rgba(0, 0, 0, 0.5);
   color: wheat;
+  display: flex;
+  justify-content: space-evenly;
+  display: none;
 }
 
 .controls {

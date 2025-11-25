@@ -1,6 +1,6 @@
 /* window.addEventListener("DOMContentLoaded", main);
 
-function main() {} */
+function startOfGame() {} */
 
 let xp = 0;
 let health = 100;
@@ -44,7 +44,7 @@ const locations = [
       "Hunt for orcs",
       "Raid the orc encampment",
     ],
-    //  "button function": [goArmory, goPotionShop, goHunt, goRaid],
+     "button function": [goArmory, goPotionShop, goHunt, goRaid],
     text: "You step into the town square. The usual bustle is muted, villagers move about with hurried steps and worried eyes, whispering among themselves. Nearby, two shops stand out, both look like they might prove useful in gathering some supplies and armour.",
   },
   {
@@ -54,13 +54,13 @@ const locations = [
       "Buy armour(10gold)",
       "Go back to town square",
     ],
-    // "button function": [buyWeapon, buyArmour, goTown],
+    "button function": [buyWeapon, buyArmour, goTown],
     text: "You step into the armory, and immediately a sharp, assessing gaze cuts through the dim light. An old man stands behind the counter—scarred, weathered, and clearly no stranger to battle. His eyes narrow slightly as he studies you.Well then,’ he rasps, ‘you here to buy some armor, or are you just taking in the scenery?",
   },
   {
     name: "Potion Shop",
     "button text": ["Buy health potion", "Go back to town square"],
-    // "button function": [buyPotion, goTown],
+    "button function": [buyPotion, goTown],
     text: "You step into the potion shop, greeted by swirling scents of herbs and faintly glowing vials. A soft, knowing gaze meets yours, an older woman stands behind the counter. There is something otherworldly about her, as if she sees more then she lets on.‘Welcome, dear one,’ she murmurs, her voice warm and strangely enchanting. ‘Seeking a potion… or simply wandering where curiosity leads you?’",
   },
   {
@@ -71,14 +71,14 @@ const locations = [
       "Fight Orc shaman",
       "Go back to town",
     ],
-    // "button function": [fightBeast, fightRaider, fightShaman, goTown],
+    "button function": [fightBeast, fightRaider, fightShaman, goTown],
     text: "Through the twisted trees, you catch sight of an orc encampment. Flames leap from crude fires, casting shadows that twitch like living things. Inside the camp you spot a rabid beast snarlig at the edge, fast but weak, and orc raider sharpening his axe, dangerous but beatable, and a dark orc shaman chanting by a smoky brazier, powerful and deadly... what do you do?",
   },
   {
     name: "Raid",
     "button text": ["Fight the Orc warlord", "Go back to town"],
-    // "button function": [fightWarlord, goTown],
-    text: "The chamber opens before you, dark and cavernous, torches sputtering along stone walls, the air heavy with the scent of battle and steel. At the center stands the orc warlord, fierce, battle, hardened, and radiating deadly strength. Every muscle tensed, every scar a story of conquest, he glares at you. This is the greatest challenge yet. Will you face him?",
+    "button function": [fightWarlord, goTown],
+    text: "The chamber opens before you, dark and cavernous, torches sputtering along stone walls, the air heavy with the scent of battle and steel. At the center stands the orc warlord, fierce, battle hardened, and radiating deadly strength. Every muscle tensed, every scar a story of conquest, he glares at you. This is the greatest challenge yet. Will you face him?",
   },
   {
     name: "fight",
@@ -124,4 +124,101 @@ function dontHelp() {
   }
 }
 
+
+
+function goTown () {
+  let changeBackground = document.body;
+  changeBackground.style.backgroundImage = `url(Images/image${(image = 3)}.png)`
+  update(locations[0]);
+  button3.style.display = "block";
+  button4.style.display = "block";
+}
+
+button1.onclick = goTown;
 button2.onclick = dontHelp;
+
+function update(location) {
+  monsterStats.style.display = "none";
+  button1.innerText = location["button text"][0];
+  button2.innerText = location["button text"][1];
+  button3.innerText = location["button text"][2];
+  button4.innerText = location["button text"][3];
+  button1.onclick = location["button function"][0];
+  button2.onclick = location["button function"][1];
+  button3.onclick = location["button function"][2];
+  button4.onclick = location["button function"][3];
+  text.innerHTML = location.text;
+  
+}
+
+function goArmory() {
+  let changeBackground = document.body;
+  changeBackground.style.backgroundImage = `url(Images/image${(image = 4)}.png)`;
+  update(locations[1]);
+  button3.style.display = "block";
+  button4.style.display = "none";
+}
+
+function goPotionShop () {
+  let changeBackground = document.body;
+  changeBackground.style.backgroundImage = `url(Images/image${(image = 5)}.png)`;
+
+  update(locations[2]);
+  button3.style.display = "none";
+  button4.style.display = "none";
+}
+
+function goHunt () {
+   let changeBackground = document.body;
+  changeBackground.style.backgroundImage = `url(Images/image${(image = 6)}.png)`;
+
+  update(locations[3]);
+  button3.style.display = "block";
+  button4.style.display = "block";
+}
+
+function goRaid () {
+  let changeBackground = document.body;
+  changeBackground.style.backgroundImage = `url(Images/image${(image = 10)}.png)`;
+
+  update(locations[4]);
+  button3.style.display = "none";
+  button4.style.display = "none";
+}
+
+function buyWeapon () {
+  console.log("buying weapon");
+}
+
+function buyArmour () {
+  console.log("buying armour");
+}
+
+function buyPotion () {
+  console.log("buying healt potion");
+}
+
+function fightBeast () {
+  let changeBackground = document.body;
+  changeBackground.style.backgroundImage = `url(Images/image${(image = 7)}.png)`;
+
+  console.log("fighting beast");
+}
+
+function fightRaider () {
+  let changeBackground = document.body;
+  changeBackground.style.backgroundImage = `url(Images/image${(image = 8)}.png)`;
+
+  console.log("fighting raider");
+}
+
+function fightShaman () {
+  let changeBackground = document.body;
+  changeBackground.style.backgroundImage = `url(Images/image${(image = 9)}.png)`;
+
+  console.log("fighting Shaman");
+}
+
+function fightWarlord () {
+  console.log("fighting warlord");
+}
