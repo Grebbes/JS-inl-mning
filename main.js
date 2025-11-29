@@ -4,11 +4,11 @@ function startOfGame() {} */
 
 let xp = 0;
 let health = 100;
-let gold = 50;
+let gold = 100;
 let currentWeapon = 0;
 let fighting;
 let monsterHealth;
-let inventry = ["stick"];
+let inventory = ["stick"];
 let healthPotion = 10;
 let image = 0;
 
@@ -53,8 +53,9 @@ const locations = [
       "Buy weapon(30gold)",
       "Buy armour(10gold)",
       "Go back to town square",
+      "Sell weapon"
     ],
-    "button function": [buyWeapon, buyArmour, goTown],
+    "button function": [buyWeapon, buyArmour, goTown, sellWeapon],
     text: "You step into the armory, and immediately a sharp, assessing gaze cuts through the dim light. An old man stands behind the counter—scarred, weathered, and clearly no stranger to battle. His eyes narrow slightly as he studies you.Well then,’ he rasps, ‘you here to buy some armor, or are you just taking in the scenery?",
   },
   {
@@ -155,8 +156,18 @@ function goArmory() {
   let changeBackground = document.body;
   changeBackground.style.backgroundImage = `url(Images/image${(image = 4)}.png)`;
   update(locations[1]);
+  button2.addEventListener("mouseover", () =>{
+    if (image === 4){
+      text.innerText = "Increase hitpoints by 10 points."
+    }
+  })
+  button2.addEventListener("mouseout", () => {
+    if(image === 4){
+      text.innerText = locations[1].text;
+    }
+  });
   button3.style.display = "block";
-  button4.style.display = "none";
+  button4.style.display = "block";
 }
 
 function goPotionShop () {
@@ -187,7 +198,44 @@ function goRaid () {
 }
 
 function buyWeapon () {
-  console.log("buying weapon");
+   if (currentWeapon < weapons.length - 1){
+    if (gold >= 30) {
+      gold -= 30;
+      currentWeapon++
+      goldText.innerText = gold;
+      let newWeapon = weapons[currentWeapon].name;
+      text.innerText = "You just bought a " + newWeapon + ". ";
+      inventory.push(newWeapon);
+      text.innerText += " In your inventory you have a " + inventory;
+    }else {
+      text.innerText = "You don't have enough gold for that."
+    }
+  }
+} 
+
+function sellWeapon () {
+  if (inventory.length > 1 && inventory[0] === "stick") {
+    gold += 5;
+    goldText.innerText = gold;
+    let currentWeapon = inventory.shift();
+    text.innerText = "You just sold one of your weapons to the shop keeper. You now have a "  +  inventory +  " in your inventory.";
+  }else if (inventory.length > 1 && inventory[0] === "Rusty sword") {
+    gold += 10;
+    goldText.innerText = gold;
+     let currentWeapon = inventory.shift();
+    text.innerText = "You just sold one of your weapons to the shop keeper. You now have a "  +  inventory +  " in your inventory.";
+  }else if ( inventory.length > 1 && inventory[0] === "Claymore") {
+    gold += 20
+    goldText.innerText = gold;
+     let currentWeapon = inventory.shift();
+    text.innerText = "You just sold one of your weapons to the shop keeper. You now have a "  +  inventory +  " in your inventory.";
+  }else if (inventory[0] === "Sword of Heroes"){
+    text.innerText = "This looks like a really powerful sword, i should probably not sell it!"
+    
+  }
+   else {
+    text.innerText = "I probably should not sell my only weapon";
+  }
 }
 
 function buyArmour () {
@@ -222,3 +270,4 @@ function fightShaman () {
 function fightWarlord () {
   console.log("fighting warlord");
 }
+
