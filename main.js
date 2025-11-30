@@ -6,6 +6,7 @@ let xp = 0;
 let health = 100;
 let gold = 100;
 let currentWeapon = 0;
+let currentPotion = 0;
 let fighting;
 let monsterHealth;
 let inventory = ["stick"];
@@ -243,7 +244,17 @@ function buyArmour () {
 }
 
 function buyPotion () {
-  console.log("buying healt potion");
+  if(gold >= 25 && inventory.includes("Healing potion")) {
+    currentPotion++;
+    gold -= 25;
+    goldText.innerText = gold;
+    const healingPotion = "Healing potion";
+    inventory.push(healingPotion);
+    text.innerText = "The shop keeper smiles at you as she slides the potion that you just bought across the table. Your inventory now contains: " + inventory;
+  }else {
+    text.innerText = "You dont have enough gold for that."
+  }
+  console.log(currentPotion);
 }
 
 function fightBeast () {
