@@ -81,6 +81,7 @@ function attack() {
       defeatMonster();
     }
   }
+  saveGame();
 }
 
 function dodge() {
@@ -112,6 +113,7 @@ function drinkPotion() {
   text.innerHTML +=
     "<br> The potion restores " + potionHealing + " points of health. <br> You now have " + currentPotion + " Healing potions in your inventory.";
     }
+    saveGame();
 }
 
 function run() {
@@ -119,6 +121,7 @@ function run() {
   monsterStats.style.display = "none";
   text.innerText =
     "You run away from the fight, barley escaping with your life.";
+    saveGame();
 }
 
 function getMonsterAttackValue(level) {

@@ -11,8 +11,15 @@ window.addEventListener("DOMContentLoaded", () => {
     fighting = data.fighting;
     monsterHealth = data.monsterHealth;
     inventory = data.inventory;
-    healthPotion = data. healthPotion;
+    healthPotion = data.healthPotion;
     image = data.image;
+    text.innerText = "Welcome back brave adventurer! Your journey continues...";
+    xpText.innerText = xp;
+    healthText.innerText = health;
+    goldText.innerText = gold;
+    monsterHealthText.innerText = monsterHealth;
+    monsterNameText.innerText = monsters[fighting].name;
+
   }
 });
 
@@ -28,7 +35,8 @@ function saveGame() {
     monsterHealth: monsterHealth,
     inventory: inventory,
     healthPotion: healthPotion,
-    image: image
+    image: image,
+    
   }
   localStorage.setItem("gameData", JSON.stringify(gameData));
 }

@@ -20,6 +20,7 @@ function goTown() {
   update(locations[0]);
   button3.style.display = "block";
   button4.style.display = "block";
+  saveGame();
 }
 
 button1.onclick = goTown;
@@ -99,6 +100,7 @@ function buyWeapon() {
       text.innerText = "You don't have enough gold for that.";
     }
   }
+  saveGame();
 }
 
 function sellWeapon() {
@@ -120,6 +122,7 @@ function sellWeapon() {
     "You just sold one of your weapons to the shop keeper. You now have a " +
     inventory +
     " in your inventory.";
+    saveGame();
 }
 
 function buyArmour() {
@@ -134,6 +137,7 @@ function buyArmour() {
   } else {
     text.innerText = "You don't have enough gold for that.";
   }
+  saveGame();
 }
 
 function buyPotion() {
@@ -151,4 +155,5 @@ function buyPotion() {
     " " +
     currentPotion +
     "x Healing potion";
+    saveGame();
 }
