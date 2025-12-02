@@ -26,7 +26,7 @@ const monsterHealthText = document.querySelector("#monster-Health");
 const monsterNameText = document.querySelector("#monster-Name");
 const weapons = [
   { name: "Stick", power: 10, value: 10 },
-  { name: "Rusty sword", power: 15, value: 30 },
+  { name: "Rusty sword", power: 20, value: 30 },
   { name: "Claymore", power: 30, value: 50 },
   { name: "Sword of Heroes", power: 50, value: 100 },
 ];
@@ -86,12 +86,12 @@ const locations = [
     name: "fight",
     "button text": ["Attack", "Dodge", "Drink potion", "Run"],
     "button function": [attack, dodge, drinkPotion, run],
-    text: "You are fighting the orcs.",
+    text: "",
   },
   {
     name: "Kill monster",
     "button text": ["Go to town square", "Go to town square"],
-    // "button function": [goTown, goTown],
+    "button function": [goTown, goTown],
     text: "With a final strike, the enemy falls. Silence fills the clearing, your victory is clear but the fight is far from over.",
   },
   {
@@ -110,215 +110,4 @@ const locations = [
 
 function restartGame() {
   location.reload();
-}
-
-function dontHelp() {
-  let changeBackground = document.body;
-  changeBackground.style.backgroundImage = `url(Images/image${(image = 2)}.png)`;
-
-  if (image === 2) {
-    text.innerText =
-      "You turn away, leaving the town to its fate. Fire consume the streets, smoke curling into the sky, and the villagers are left to face ruin without a home. The cries of the desperate fade behind you as you walk away.";
-    button1.innerText = "Restart";
-    button2.innerText = "Restart";
-    button2.onclick = restartGame;
-    button1.onclick = restartGame;
-  }
-}
-
-function goTown() {
-  let changeBackground = document.body;
-  changeBackground.style.backgroundImage = `url(Images/image${(image = 3)}.png)`;
-  update(locations[0]);
-  button3.style.display = "block";
-  button4.style.display = "block";
-}
-
-button1.onclick = goTown;
-button2.onclick = dontHelp;
-
-function update(location) {
-  button1.innerText = location["button text"][0];
-  button2.innerText = location["button text"][1];
-  button3.innerText = location["button text"][2];
-  button4.innerText = location["button text"][3];
-  button1.onclick = location["button function"][0];
-  button2.onclick = location["button function"][1];
-  button3.onclick = location["button function"][2];
-  button4.onclick = location["button function"][3];
-  text.innerHTML = location.text;
-}
-
-function goArmory() {
-  let changeBackground = document.body;
-  changeBackground.style.backgroundImage = `url(Images/image${(image = 4)}.png)`;
-  update(locations[1]);
-  button2.addEventListener("mouseover", () => {
-    if (image === 4) {
-      text.innerText = "Increase hitpoints by 10 points.";
-    }
-  });
-  button2.addEventListener("mouseout", () => {
-    if (image === 4) {
-      text.innerText = locations[1].text;
-    }
-  });
-  button3.style.display = "block";
-  button4.style.display = "block";
-}
-
-function goPotionShop() {
-  let changeBackground = document.body;
-  changeBackground.style.backgroundImage = `url(Images/image${(image = 5)}.png)`;
-
-  update(locations[2]);
-  button3.style.display = "none";
-  button4.style.display = "none";
-}
-
-function goHunt() {
-  let changeBackground = document.body;
-  changeBackground.style.backgroundImage = `url(Images/image${(image = 6)}.png)`;
-
-  update(locations[3]);
-  button3.style.display = "block";
-  button4.style.display = "block";
-}
-
-function goRaid() {
-  let changeBackground = document.body;
-  changeBackground.style.backgroundImage = `url(Images/image${(image = 10)}.png)`;
-
-  update(locations[4]);
-  button3.style.display = "none";
-  button4.style.display = "none";
-}
-
-function buyWeapon() {
-  if (currentWeapon < weapons.length - 1) {
-    let newWeapon = weapons[currentWeapon + 1];
-    if (gold >= newWeapon.value) {
-      currentWeapon++;
-      inventory.push(newWeapon.name);
-      gold -= newWeapon.value;
-      goldText.innerText = gold;
-      text.innerText = "You just bought a " + newWeapon.name + ". ";
-      text.innerText += " In your inventory you have a " + inventory;
-    } else {
-      text.innerText = "You don't have enough gold for that.";
-    }
-  }
-}
-
-function sellWeapon() {
-  if (inventory.length === 1) {
-    if (inventory[0] === "Sword of Heroes") {
-      text.innerText =
-        "This looks like a really powerful sword, i should probably not sell it!";
-    } else {
-      text.innerText = "I probably should not sell my only weapon";
-    }
-    return;
-  }
-
-  let weaponName = inventory.shift();
-  const weapon = weapons.find((w) => w.name === weaponName);
-  gold += weapon.value / 2;
-  goldText.innerText = gold;
-  text.innerText =
-    "You just sold one of your weapons to the shop keeper. You now have a " +
-    inventory +
-    " in your inventory.";
-}
-
-function buyArmour() {
-  if (gold >= 10) {
-    health += 10;
-    gold -= 10;
-    goldText.innerText = gold;
-    healthText.innerText = health;
-    text.innerText =
-      "The shopkeeper takes your armour and works at it vigorously, after a while he hands it back to you, the armour looking brand new and a bit more sturdy.";
-  } else {
-    text.innerText = "You don't have enough gold for that.";
-  }
-}
-
-function buyPotion() {
-  if (gold < 25) {
-    text.innerText = "You dont have enough gold for that.";
-    return;
-  }
-
-  currentPotion++;
-  gold -= 25;
-  goldText.innerText = gold;
-  text.innerText =
-    "The shop keeper smiles at you as she slides the potion that you just bought across the table. Your inventory now contains: " +
-    inventory +
-    " " +
-    currentPotion +
-    "x Healing potion";
-}
-
-function fightBeast() {
-  let changeBackground = document.body;
-  changeBackground.style.backgroundImage = `url(Images/image${(image = 7)}.png)`;
-  fighting = 0;
-
-  goFight();
-  update(locations[5]);
-}
-
-function fightRaider() {
-  let changeBackground = document.body;
-  changeBackground.style.backgroundImage = `url(Images/image${(image = 8)}.png)`;
-  fighting = 1;
-
-  goFight();
-  update(locations[5]);
-}
-
-function fightShaman() {
-  let changeBackground = document.body;
-  changeBackground.style.backgroundImage = `url(Images/image${(image = 9)}.png)`;
-  fighting = 2;
-
-  goFight();
-  update(locations[5]);
-}
-
-function fightWarlord() {
-  let changeBackground = document.body;
-  changeBackground.style.backgroundImage = `url(Images/image${(image = 11)}.png)`;
-  fighting = 3;
-
-  goFight();
-  update(locations[5]);
-}
-
-function goFight() {
-  monsterStats.style.display = "flex";
-  monsterNameText.innerText = monsters[fighting].name;
-  monsterHealthText.innerText = monsters[fighting].health;
-  console.log("fighting");
-}
-
-function attack() {
-  text.innerText =
-    "You are fighting a " + monsters[fighting].name + "be careful";
-}
-
-function dodge() {
-  console.log("dodge");
-}
-
-function drinkPotion() {
-  console.log("drinking potion");
-}
-
-function run() {
-  goTown();
-  text.innerText =
-    "You run away from the fight, barley escaping with your life.";
 }
