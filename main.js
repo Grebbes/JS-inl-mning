@@ -25,8 +25,8 @@ const monsterStats = document.querySelector("#monsterstats");
 const monsterHealthText = document.querySelector("#monster-Health");
 const monsterNameText = document.querySelector("#monster-Name");
 const weapons = [
-  { name: "Stick", power: 10, value: 10 },
-  { name: "Rusty sword", power: 20, value: 30 },
+  { name: "Stick", power: 5, value: 10 },
+  { name: "Rusty sword", power: 15, value: 30 },
   { name: "Claymore", power: 30, value: 50 },
   { name: "Sword of Heroes", power: 50, value: 100 },
 ];

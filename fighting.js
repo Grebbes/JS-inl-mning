@@ -64,10 +64,10 @@ function attack() {
   } else {
     text.innerText =
       "The " + monsters[fighting].name + "move with such speed that you miss!";
-    text.innerHTML =
+    text.innerHTML +=
       "<br> but the " +
       monsters[fighting].name +
-      " still deals" +
+      " still deals " +
       getMonsterAttackValue(monsters[fighting].level) +
       " damage to you.";
   }
@@ -79,12 +79,17 @@ function attack() {
   }
 }
 
-function dodge() {
-  console.log("dodge");
-}
+function dodge() {}
 
 function drinkPotion() {
-  console.log("drinking potion");
+  potion = 25;
+  potionHealing = Math.ceil(Math.random() * potion + 25);
+  health += potionHealing;
+  healthText.innerText = health;
+  text.innerText =
+    "you drink the potion that you bought from the old lady. suddenly you feel energized and that the wounds are healing.";
+  text.innerHTML =
+    "<br> The potion restores " + potionHealing + " points of health";
 }
 
 function run() {
@@ -95,7 +100,7 @@ function run() {
 }
 
 function getMonsterAttackValue(level) {
-  const hit = level * 3 - Math.ceil(Math.random() * xp);
+  const hit = level * 3 - Math.round(Math.random() * (xp + 1));
   return hit > 0 ? hit : 0;
 }
 
@@ -113,8 +118,8 @@ function defeatMonster() {
   update(locations[6]);
   button3.style.display = "none";
   button4.style.display = "none";
-  gold += Math.ceil(Math.random(monsters[fighting].level) * 7.5) + 10;
-  xp += Math.ceil(Math.random(monsters[fighting].level) * 10) + 5;
+  gold += Math.ceil(Math.random() * monsters[fighting].level * 10);
+  xp += monsters[fighting].level + 7;
   goldText.innerText = gold;
   xpText.innerText = xp;
 }
