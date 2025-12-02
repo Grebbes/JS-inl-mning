@@ -31,7 +31,7 @@ body {
   text-align: center;
   padding-top: 20px;
   height: 100%;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
 }
 
 .stats {
@@ -44,14 +44,12 @@ body {
 }
 
 #monsterstats {
-  justify-content: space-evenly;
   border-bottom: 2px solid rgb(135, 68, 26);
   padding-block: 10px;
   background-color: rgba(0, 0, 0, 0.5);
   color: wheat;
-  display: flex;
-  justify-content: space-evenly;
   display: none;
+  justify-content: space-evenly;
 }
 
 .controls {

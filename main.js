@@ -9,7 +9,7 @@ let currentWeapon = 0;
 let currentPotion = 0;
 let fighting;
 let monsterHealth;
-let inventory = ["stick"];
+let inventory = ["Stick"];
 let healthPotion = 10;
 let image = 0;
 
@@ -25,10 +25,10 @@ const monsterStats = document.querySelector("#monsterstats");
 const monsterHealthText = document.querySelector("#monster-Health");
 const monsterNameText = document.querySelector("#monster-Name");
 const weapons = [
-  { name: "Stick", power: 10 },
-  { name: "Rusty sword", power: 15 },
-  { name: "Claymore", power: 30 },
-  { name: "Sword of Heroes", power: 50 },
+  { name: "Stick", power: 10, value: 10 },
+  { name: "Rusty sword", power: 15, value: 30 },
+  { name: "Claymore", power: 30, value: 50 },
+  { name: "Sword of Heroes", power: 50, value: 100 },
 ];
 const monsters = [
   { name: "Rabid beast", level: 3, health: 25 },
@@ -45,7 +45,7 @@ const locations = [
       "Hunt for orcs",
       "Raid the orc encampment",
     ],
-     "button function": [goArmory, goPotionShop, goHunt, goRaid],
+    "button function": [goArmory, goPotionShop, goHunt, goRaid],
     text: "You step into the town square. The usual bustle is muted, villagers move about with hurried steps and worried eyes, whispering among themselves. Nearby, two shops stand out, both look like they might prove useful in gathering some supplies and armour.",
   },
   {
@@ -54,7 +54,7 @@ const locations = [
       "Buy weapon(30gold)",
       "Buy armour(10gold)",
       "Go back to town square",
-      "Sell weapon"
+      "Sell weapon",
     ],
     "button function": [buyWeapon, buyArmour, goTown, sellWeapon],
     text: "You step into the armory, and immediately a sharp, assessing gaze cuts through the dim light. An old man stands behind the counter—scarred, weathered, and clearly no stranger to battle. His eyes narrow slightly as he studies you.Well then,’ he rasps, ‘you here to buy some armor, or are you just taking in the scenery?",
@@ -85,7 +85,7 @@ const locations = [
   {
     name: "fight",
     "button text": ["Attack", "Dodge", "Drink potion", "Run"],
-    // "button function": [attack, dodge, drinkPotion, run],
+    "button function": [attack, dodge, drinkPotion, run],
     text: "You are fighting the orcs.",
   },
   {
@@ -126,11 +126,9 @@ function dontHelp() {
   }
 }
 
-
-
-function goTown () {
+function goTown() {
   let changeBackground = document.body;
-  changeBackground.style.backgroundImage = `url(Images/image${(image = 3)}.png)`
+  changeBackground.style.backgroundImage = `url(Images/image${(image = 3)}.png)`;
   update(locations[0]);
   button3.style.display = "block";
   button4.style.display = "block";
@@ -140,7 +138,6 @@ button1.onclick = goTown;
 button2.onclick = dontHelp;
 
 function update(location) {
-  monsterStats.style.display = "none";
   button1.innerText = location["button text"][0];
   button2.innerText = location["button text"][1];
   button3.innerText = location["button text"][2];
@@ -150,20 +147,19 @@ function update(location) {
   button3.onclick = location["button function"][2];
   button4.onclick = location["button function"][3];
   text.innerHTML = location.text;
-  
 }
 
 function goArmory() {
   let changeBackground = document.body;
   changeBackground.style.backgroundImage = `url(Images/image${(image = 4)}.png)`;
   update(locations[1]);
-  button2.addEventListener("mouseover", () =>{
-    if (image === 4){
-      text.innerText = "Increase hitpoints by 10 points."
+  button2.addEventListener("mouseover", () => {
+    if (image === 4) {
+      text.innerText = "Increase hitpoints by 10 points.";
     }
-  })
+  });
   button2.addEventListener("mouseout", () => {
-    if(image === 4){
+    if (image === 4) {
       text.innerText = locations[1].text;
     }
   });
@@ -171,7 +167,7 @@ function goArmory() {
   button4.style.display = "block";
 }
 
-function goPotionShop () {
+function goPotionShop() {
   let changeBackground = document.body;
   changeBackground.style.backgroundImage = `url(Images/image${(image = 5)}.png)`;
 
@@ -180,8 +176,8 @@ function goPotionShop () {
   button4.style.display = "none";
 }
 
-function goHunt () {
-   let changeBackground = document.body;
+function goHunt() {
+  let changeBackground = document.body;
   changeBackground.style.backgroundImage = `url(Images/image${(image = 6)}.png)`;
 
   update(locations[3]);
@@ -189,7 +185,7 @@ function goHunt () {
   button4.style.display = "block";
 }
 
-function goRaid () {
+function goRaid() {
   let changeBackground = document.body;
   changeBackground.style.backgroundImage = `url(Images/image${(image = 10)}.png)`;
 
@@ -198,87 +194,131 @@ function goRaid () {
   button4.style.display = "none";
 }
 
-function buyWeapon () {
-   if (currentWeapon < weapons.length - 1){
-    if (gold >= 30) {
-      gold -= 30;
-      currentWeapon++
+function buyWeapon() {
+  if (currentWeapon < weapons.length - 1) {
+    let newWeapon = weapons[currentWeapon + 1];
+    if (gold >= newWeapon.value) {
+      currentWeapon++;
+      inventory.push(newWeapon.name);
+      gold -= newWeapon.value;
       goldText.innerText = gold;
-      let newWeapon = weapons[currentWeapon].name;
-      text.innerText = "You just bought a " + newWeapon + ". ";
-      inventory.push(newWeapon);
+      text.innerText = "You just bought a " + newWeapon.name + ". ";
       text.innerText += " In your inventory you have a " + inventory;
-    }else {
-      text.innerText = "You don't have enough gold for that."
+    } else {
+      text.innerText = "You don't have enough gold for that.";
     }
   }
-} 
+}
 
-function sellWeapon () {
-  if (inventory.length > 1 && inventory[0] === "stick") {
-    gold += 5;
-    goldText.innerText = gold;
-    let currentWeapon = inventory.shift();
-    text.innerText = "You just sold one of your weapons to the shop keeper. You now have a "  +  inventory +  " in your inventory.";
-  }else if (inventory.length > 1 && inventory[0] === "Rusty sword") {
-    gold += 10;
-    goldText.innerText = gold;
-     let currentWeapon = inventory.shift();
-    text.innerText = "You just sold one of your weapons to the shop keeper. You now have a "  +  inventory +  " in your inventory.";
-  }else if ( inventory.length > 1 && inventory[0] === "Claymore") {
-    gold += 20
-    goldText.innerText = gold;
-     let currentWeapon = inventory.shift();
-    text.innerText = "You just sold one of your weapons to the shop keeper. You now have a "  +  inventory +  " in your inventory.";
-  }else if (inventory[0] === "Sword of Heroes"){
-    text.innerText = "This looks like a really powerful sword, i should probably not sell it!"
-    
+function sellWeapon() {
+  if (inventory.length === 1) {
+    if (inventory[0] === "Sword of Heroes") {
+      text.innerText =
+        "This looks like a really powerful sword, i should probably not sell it!";
+    } else {
+      text.innerText = "I probably should not sell my only weapon";
+    }
+    return;
   }
-   else {
-    text.innerText = "I probably should not sell my only weapon";
+
+  let weaponName = inventory.shift();
+  const weapon = weapons.find((w) => w.name === weaponName);
+  gold += weapon.value / 2;
+  goldText.innerText = gold;
+  text.innerText =
+    "You just sold one of your weapons to the shop keeper. You now have a " +
+    inventory +
+    " in your inventory.";
+}
+
+function buyArmour() {
+  if (gold >= 10) {
+    health += 10;
+    gold -= 10;
+    goldText.innerText = gold;
+    healthText.innerText = health;
+    text.innerText =
+      "The shopkeeper takes your armour and works at it vigorously, after a while he hands it back to you, the armour looking brand new and a bit more sturdy.";
+  } else {
+    text.innerText = "You don't have enough gold for that.";
   }
 }
 
-function buyArmour () {
-  console.log("buying armour");
-}
-
-function buyPotion () {
-  if(gold >= 25 && inventory.includes("Healing potion")) {
-    currentPotion++;
-    gold -= 25;
-    goldText.innerText = gold;
-    const healingPotion = "Healing potion";
-    inventory.push(healingPotion);
-    text.innerText = "The shop keeper smiles at you as she slides the potion that you just bought across the table. Your inventory now contains: " + inventory;
-  }else {
-    text.innerText = "You dont have enough gold for that."
+function buyPotion() {
+  if (gold < 25) {
+    text.innerText = "You dont have enough gold for that.";
+    return;
   }
-  console.log(currentPotion);
+
+  currentPotion++;
+  gold -= 25;
+  goldText.innerText = gold;
+  text.innerText =
+    "The shop keeper smiles at you as she slides the potion that you just bought across the table. Your inventory now contains: " +
+    inventory +
+    " " +
+    currentPotion +
+    "x Healing potion";
 }
 
-function fightBeast () {
+function fightBeast() {
   let changeBackground = document.body;
   changeBackground.style.backgroundImage = `url(Images/image${(image = 7)}.png)`;
+  fighting = 0;
 
-  console.log("fighting beast");
+  goFight();
+  update(locations[5]);
 }
 
-function fightRaider () {
+function fightRaider() {
   let changeBackground = document.body;
   changeBackground.style.backgroundImage = `url(Images/image${(image = 8)}.png)`;
+  fighting = 1;
 
-  console.log("fighting raider");
+  goFight();
+  update(locations[5]);
 }
 
-function fightShaman () {
+function fightShaman() {
   let changeBackground = document.body;
   changeBackground.style.backgroundImage = `url(Images/image${(image = 9)}.png)`;
+  fighting = 2;
 
-  console.log("fighting Shaman");
+  goFight();
+  update(locations[5]);
 }
 
-function fightWarlord () {
-  console.log("fighting warlord");
+function fightWarlord() {
+  let changeBackground = document.body;
+  changeBackground.style.backgroundImage = `url(Images/image${(image = 11)}.png)`;
+  fighting = 3;
+
+  goFight();
+  update(locations[5]);
 }
 
+function goFight() {
+  monsterStats.style.display = "flex";
+  monsterNameText.innerText = monsters[fighting].name;
+  monsterHealthText.innerText = monsters[fighting].health;
+  console.log("fighting");
+}
+
+function attack() {
+  text.innerText =
+    "You are fighting a " + monsters[fighting].name + "be careful";
+}
+
+function dodge() {
+  console.log("dodge");
+}
+
+function drinkPotion() {
+  console.log("drinking potion");
+}
+
+function run() {
+  goTown();
+  text.innerText =
+    "You run away from the fight, barley escaping with your life.";
+}
