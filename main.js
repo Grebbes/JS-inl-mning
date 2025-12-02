@@ -1,9 +1,48 @@
-/* window.addEventListener("DOMContentLoaded", main);
+window.addEventListener("DOMContentLoaded", () => {
+  const savedGame = JSON.parse(localStorage.getItem("gameData"))
+  if(savedGame){
+    const data = savedGame;
+    xp = data.xp;
+    health = data.health;
+    maxHealth = data.maxHealth;
+    gold = data.gold;
+    currentWeapon = data.currentWeapon;
+    currentPotion = data.currentPotion;
+    fighting = data.fighting;
+    monsterHealth = data.monsterHealth;
+    inventory = data.inventory;
+    healthPotion = data. healthPotion;
+    image = data.image;
+  }
+});
 
-function startOfGame() {} */
+function saveGame() {
+  const gameData = {
+    xp: xp,
+    health: health,
+    maxHealth: maxHealth,
+    gold: gold,
+    currentWeapon: currentWeapon,
+    currentPotion: currentPotion,
+    fighting: fighting,
+    monsterHealth: monsterHealth,
+    inventory: inventory,
+    healthPotion: healthPotion,
+    image: image
+  }
+  localStorage.setItem("gameData", JSON.stringify(gameData));
+}
+
+function restartGame() {
+  localStorage.removeItem("gameData");
+  location.reload();
+}
+
+
 
 let xp = 0;
 let health = 100;
+let maxHealth = 100;
 let gold = 100;
 let currentWeapon = 0;
 let currentPotion = 0;
@@ -108,6 +147,3 @@ const locations = [
   },
 ];
 
-function restartGame() {
-  location.reload();
-}

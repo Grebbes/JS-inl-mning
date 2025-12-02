@@ -125,6 +125,7 @@ function sellWeapon() {
 function buyArmour() {
   if (gold >= 10) {
     health += 10;
+    maxHealth += 10;
     gold -= 10;
     goldText.innerText = gold;
     healthText.innerText = health;

@@ -69,27 +69,49 @@ function attack() {
       monsters[fighting].name +
       " still deals " +
       getMonsterAttackValue(monsters[fighting].level) +
-      " damage to you.";
+        " damage to you.";
   }
   healthText.innerText = health;
   if (health <= 0) {
     lose();
   } else if (monsterHealth <= 0) {
-    defeatMonster();
+    if(fighting === 3){
+      winGame();
+    }else {
+      defeatMonster();
+    }
   }
 }
 
-function dodge() {}
+function dodge() {
+  text.innerText = "You dodge the attack."
+}
 
 function drinkPotion() {
-  potion = 25;
+   potion = 25;
   potionHealing = Math.ceil(Math.random() * potion + 25);
-  health += potionHealing;
+  if(currentPotion <= 0){
+    text.innerText = "You don't seem to have any healing potions on you. Maybe you should visit the potion shop in town to see what they have."
+     }else if(health === maxHealth){
+      text.innerText = "I dont need healing right now"
+    } 
+     else if(health + potionHealing >= maxHealth) {
+  health = maxHealth;
+  currentPotion--;
   healthText.innerText = health;
   text.innerText =
     "you drink the potion that you bought from the old lady. suddenly you feel energized and that the wounds are healing.";
-  text.innerHTML =
-    "<br> The potion restores " + potionHealing + " points of health";
+  text.innerHTML +=
+    "<br> The potion restores " + potionHealing + " points of health. <br> You now have " + currentPotion + " Healing potions in your inventory.";
+    }else {
+      health += potionHealing;
+      currentPotion--
+      healthText.innerText = health;
+      text.innerText =
+    "you drink the potion that you bought from the old lady. suddenly you feel energized and that the wounds are healing.";
+  text.innerHTML +=
+    "<br> The potion restores " + potionHealing + " points of health. <br> You now have " + currentPotion + " Healing potions in your inventory.";
+    }
 }
 
 function run() {
@@ -122,4 +144,10 @@ function defeatMonster() {
   xp += monsters[fighting].level + 7;
   goldText.innerText = gold;
   xpText.innerText = xp;
+}
+
+function winGame () {
+  update(locations[8]);
+  button3.style.display = "none";
+  button4.style.display = "none";
 }
