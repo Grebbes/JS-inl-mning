@@ -49,7 +49,14 @@ function goFight() {
 function attack() {
   text.innerText = " You attack with your " + weapons[currentWeapon].name + ".";
   health -= getMonsterAttackValue(monsters[fighting].level);
-  if (isMonsterHit()) {
+  
+  if(getMonsterAttackValue(monsters[fighting].level) <= 0){
+    const damage = Math.ceil(Math.random() * weapons[currentWeapon].power);
+    monsterHealth -= damage;
+    monsterHealthText.innerText = monsterHealth;
+    text.innerText = "you dodge the attack but still deal but still manage to hurt the" + monsters[fighting].name + " dealing " + damage + " damage";
+  }
+  else if (isMonsterHit()) {
     const damage = Math.ceil(Math.random() * weapons[currentWeapon].power);
     monsterHealth -= damage;
     monsterHealthText.innerText = monsterHealth;
@@ -58,10 +65,10 @@ function attack() {
     text.innerHTML +=
       " <br> the " +
       monsters[fighting].name +
-      " alsoe deals " +
+      " also deals " +
       getMonsterAttackValue(monsters[fighting].level) +
       " damage to you!";
-  } else {
+  }else {
     text.innerText =
       "The " + monsters[fighting].name + "move with such speed that you miss!";
     text.innerHTML +=
@@ -100,6 +107,7 @@ function drinkPotion() {
   health = maxHealth;
   currentPotion--;
   healthText.innerText = health;
+  potionText.innerText = currentPotion;
   text.innerText =
     "you drink the potion that you bought from the old lady. suddenly you feel energized and that the wounds are healing.";
   text.innerHTML +=
@@ -108,6 +116,7 @@ function drinkPotion() {
       health += potionHealing;
       currentPotion--
       healthText.innerText = health;
+      potionText.innerText = currentPotion;
       text.innerText =
     "you drink the potion that you bought from the old lady. suddenly you feel energized and that the wounds are healing.";
   text.innerHTML +=
@@ -125,7 +134,7 @@ function run() {
 }
 
 function getMonsterAttackValue(level) {
-  const hit = level * 3 - Math.round(Math.random() * (xp + 1));
+  const hit = level * 3 - Math.round(Math.random() * xp);
   return hit > 0 ? hit : 0;
 }
 
@@ -143,8 +152,8 @@ function defeatMonster() {
   update(locations[6]);
   button3.style.display = "none";
   button4.style.display = "none";
-  gold += Math.ceil(Math.random() * monsters[fighting].level * 10);
-  xp += monsters[fighting].level + 7;
+  gold += Math.ceil(Math.random() * monsters[fighting].level * 15);
+  xp += monsters[fighting].level + 10;
   goldText.innerText = gold;
   xpText.innerText = xp;
 }

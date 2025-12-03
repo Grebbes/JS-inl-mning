@@ -18,8 +18,8 @@ window.addEventListener("DOMContentLoaded", () => {
     healthText.innerText = health;
     goldText.innerText = gold;
     monsterHealthText.innerText = monsterHealth;
+    potionText.innerText = currentPotion;
     monsterNameText.innerText = monsters[fighting].name;
-
   }
 });
 
@@ -34,9 +34,7 @@ function saveGame() {
     fighting: fighting,
     monsterHealth: monsterHealth,
     inventory: inventory,
-    healthPotion: healthPotion,
-    image: image,
-    
+    image: image,                                                                                                                                                                                                                                             
   }
   localStorage.setItem("gameData", JSON.stringify(gameData));
 }
@@ -51,13 +49,12 @@ function restartGame() {
 let xp = 0;
 let health = 100;
 let maxHealth = 100;
-let gold = 100;
+let gold = 50;
 let currentWeapon = 0;
 let currentPotion = 0;
 let fighting;
 let monsterHealth;
 let inventory = ["Stick"];
-let healthPotion = 10;
 let image = 0;
 
 const button1 = document.querySelector("#button1");
@@ -68,6 +65,7 @@ const text = document.querySelector("#text");
 const xpText = document.querySelector("#xp-Text");
 const healthText = document.querySelector("#health-Text");
 const goldText = document.querySelector("#gold-Text");
+const potionText = document.querySelector("#potion-Text")
 const monsterStats = document.querySelector("#monsterstats");
 const monsterHealthText = document.querySelector("#monster-Health");
 const monsterNameText = document.querySelector("#monster-Name");
@@ -98,7 +96,7 @@ const locations = [
   {
     name: "Armory",
     "button text": [
-      "Buy weapon(30gold)",
+      ` Buy ${weapons[currentWeapon + 1].name + ": " + weapons[currentWeapon].value}gold`,
       "Buy armour(10gold)",
       "Go back to town square",
       "Sell weapon",
@@ -125,8 +123,8 @@ const locations = [
   },
   {
     name: "Raid",
-    "button text": ["Fight the Orc warlord", "Go back to town"],
-    "button function": [fightWarlord, goTown],
+    "button text": ["Fight the Orc warlord", "Go back to town", "Drink potion"],
+    "button function": [fightWarlord, goTown, drinkPotion],
     text: "The chamber opens before you, dark and cavernous, torches sputtering along stone walls, the air heavy with the scent of battle and steel. At the center stands the orc warlord, fierce, battle hardened, and radiating deadly strength. Every muscle tensed, every scar a story of conquest, he glares at you. This is the greatest challenge yet. Will you face him?",
   },
   {

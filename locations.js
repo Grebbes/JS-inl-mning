@@ -82,7 +82,7 @@ function goRaid() {
   changeBackground.style.backgroundImage = `url(Images/image${(image = 10)}.png)`;
 
   update(locations[4]);
-  button3.style.display = "none";
+  button3.style.display = "block";
   button4.style.display = "none";
 }
 
@@ -99,6 +99,11 @@ function buyWeapon() {
     } else {
       text.innerText = "You don't have enough gold for that.";
     }
+  }
+  if(weapons[currentWeapon].name === "Sword of Heroes"){
+    button1.innerText = "Nothing more to sell"
+  }else {
+    button1.innerText = "Buy " + weapons[currentWeapon + 1].name + ": " + weapons[currentWeapon + 1].value + " gold"
   }
   saveGame();
 }
@@ -149,6 +154,7 @@ function buyPotion() {
   currentPotion++;
   gold -= 25;
   goldText.innerText = gold;
+  potionText.innerText = currentPotion;
   text.innerText =
     "The shop keeper smiles at you as she slides the potion that you just bought across the table. Your inventory now contains: " +
     inventory +
