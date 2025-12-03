@@ -78,7 +78,7 @@ const monsters = [
   { name: "Rabid beast", level: 3, health: 25 },
   { name: "Orc raider", level: 7, health: 50 },
   { name: "Orc shaman", level: 12, health: 70 },
-  { name: "Orc warlord", level: 20, health: 200 },
+  { name: "Orc warlord", level: 50, health: 400 },
 ];
 const locations = [
   {
