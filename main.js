@@ -19,7 +19,6 @@ window.addEventListener("DOMContentLoaded", () => {
     goldText.innerText = gold;
     monsterHealthText.innerText = monsterHealth;
     potionText.innerText = currentPotion;
-    monsterNameText.innerText = monsters[fighting].name;
   }
 });
 
@@ -34,7 +33,7 @@ function saveGame() {
     fighting: fighting,
     monsterHealth: monsterHealth,
     inventory: inventory,
-    image: image,                                                                                                                                                                                                                                             
+    image: image,                                                                                                                                                                                                                                         
   }
   localStorage.setItem("gameData", JSON.stringify(gameData));
 }
