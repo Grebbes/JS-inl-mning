@@ -54,10 +54,15 @@ function goArmory() {
       text.innerText = locations[1].text;
     }
   });
-  if(currentWeapon < weapons.length - 1){
-    button1.innerText = "Buy " + weapons[currentWeapon + 1].name + ": " + weapons[currentWeapon + 1].value + "gold"
-  }else {
-    button1.innerText = "Nothing more to sell"
+  if (currentWeapon < weapons.length - 1) {
+    button1.innerText =
+      "Buy " +
+      weapons[currentWeapon + 1].name +
+      ": " +
+      weapons[currentWeapon + 1].value +
+      "gold";
+  } else {
+    button1.innerText = "Nothing more to sell";
   }
   button3.style.display = "block";
   button4.style.display = "block";
@@ -106,11 +111,16 @@ function buyWeapon() {
       text.innerText = "You don't have enough gold for that.";
     }
   }
-  if(weapons[currentWeapon].name === "Sword of Heroes"){
-    button1.innerText = "Nothing more to sell"
+  if (weapons[currentWeapon].name === "Sword of Heroes") {
+    button1.innerText = "Nothing more to sell";
     text.innerText = "You already have the best weapon";
-  }else {
-    button1.innerText = "Buy " + weapons[currentWeapon + 1].name + ": " + weapons[currentWeapon + 1].value + "gold"
+  } else {
+    button1.innerText =
+      "Buy " +
+      weapons[currentWeapon + 1].name +
+      ": " +
+      weapons[currentWeapon + 1].value +
+      "gold";
   }
   saveGame();
 }
@@ -134,7 +144,7 @@ function sellWeapon() {
     "You just sold one of your weapons to the shop keeper. You now have a " +
     inventory +
     " in your inventory.";
-    saveGame();
+  saveGame();
 }
 
 function buyArmour() {
@@ -144,6 +154,7 @@ function buyArmour() {
     gold -= 10;
     goldText.innerText = gold;
     healthText.innerText = health;
+    fullHealthText.innerText = maxHealth;
     text.innerText =
       "The shopkeeper takes your armour and works at it vigorously, after a while he hands it back to you, the armour looking brand new and a bit more sturdy.";
   } else {
@@ -168,5 +179,5 @@ function buyPotion() {
     " " +
     currentPotion +
     "x Healing potion";
-    saveGame();
+  saveGame();
 }

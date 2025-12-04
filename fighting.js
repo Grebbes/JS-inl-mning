@@ -49,14 +49,18 @@ function goFight() {
 function attack() {
   text.innerText = " You attack with your " + weapons[currentWeapon].name + ".";
   health -= getMonsterAttackValue(monsters[fighting].level);
-  
-  if(getMonsterAttackValue(monsters[fighting].level) <= 0){
+
+  if (getMonsterAttackValue(monsters[fighting].level) <= 0) {
     const damage = Math.ceil(Math.random() * weapons[currentWeapon].power);
     monsterHealth -= damage;
     monsterHealthText.innerText = monsterHealth;
-    text.innerText = "you dodge the attack but still deal but still manage to hurt the" + monsters[fighting].name + " dealing " + damage + " damage";
-  }
-  else if (isMonsterHit()) {
+    text.innerText =
+      "you dodge the attack but still deal but still manage to hurt the" +
+      monsters[fighting].name +
+      " dealing " +
+      damage +
+      " damage";
+  } else if (isMonsterHit()) {
     const damage = Math.ceil(Math.random() * weapons[currentWeapon].power);
     monsterHealth -= damage;
     monsterHealthText.innerText = monsterHealth;
@@ -68,7 +72,7 @@ function attack() {
       " also deals " +
       getMonsterAttackValue(monsters[fighting].level) +
       " damage to you!";
-  }else {
+  } else {
     text.innerText =
       "The " + monsters[fighting].name + "move with such speed that you miss!";
     text.innerHTML +=
@@ -76,15 +80,15 @@ function attack() {
       monsters[fighting].name +
       " still deals " +
       getMonsterAttackValue(monsters[fighting].level) +
-        " damage to you.";
+      " damage to you.";
   }
   healthText.innerText = health;
   if (health <= 0) {
     lose();
   } else if (monsterHealth <= 0) {
-    if(fighting === 3){
+    if (fighting === 3) {
       winGame();
-    }else {
+    } else {
       defeatMonster();
     }
   }
@@ -92,37 +96,45 @@ function attack() {
 }
 
 function dodge() {
-  text.innerText = "You dodge the attack."
+  text.innerText = "You dodge the attack.";
 }
 
 function drinkPotion() {
-   potion = 25;
+  potion = 25;
   potionHealing = Math.ceil(Math.random() * potion + 25);
-  if(currentPotion <= 0){
-    text.innerText = "You don't seem to have any healing potions on you. Maybe you should visit the potion shop in town to see what they have."
-     }else if(health === maxHealth){
-      text.innerText = "I dont need healing right now"
-    } 
-     else if(health + potionHealing >= maxHealth) {
-  health = maxHealth;
-  currentPotion--;
-  healthText.innerText = health;
-  potionText.innerText = currentPotion;
-  text.innerText =
-    "you drink the potion that you bought from the old lady. suddenly you feel energized and that the wounds are healing.";
-  text.innerHTML +=
-    "<br> The potion restores " + potionHealing + " points of health. <br> You now have " + currentPotion + " Healing potions in your inventory.";
-    }else {
-      health += potionHealing;
-      currentPotion--
-      healthText.innerText = health;
-      potionText.innerText = currentPotion;
-      text.innerText =
-    "you drink the potion that you bought from the old lady. suddenly you feel energized and that the wounds are healing.";
-  text.innerHTML +=
-    "<br> The potion restores " + potionHealing + " points of health. <br> You now have " + currentPotion + " Healing potions in your inventory.";
-    }
-    saveGame();
+  if (currentPotion <= 0) {
+    text.innerText =
+      "You don't seem to have any healing potions on you. Maybe you should visit the potion shop in town to see what they have.";
+  } else if (health === maxHealth) {
+    text.innerText = "I dont need healing right now";
+  } else if (health + potionHealing >= maxHealth) {
+    health = maxHealth;
+    currentPotion--;
+    healthText.innerText = health;
+    potionText.innerText = currentPotion;
+    text.innerText =
+      "you drink the potion that you bought from the old lady. suddenly you feel energized and that the wounds are healing.";
+    text.innerHTML +=
+      "<br> The potion restores " +
+      potionHealing +
+      " points of health. <br> You now have " +
+      currentPotion +
+      " Healing potions in your inventory.";
+  } else {
+    health += potionHealing;
+    currentPotion--;
+    healthText.innerText = health;
+    potionText.innerText = currentPotion;
+    text.innerText =
+      "you drink the potion that you bought from the old lady. suddenly you feel energized and that the wounds are healing.";
+    text.innerHTML +=
+      "<br> The potion restores " +
+      potionHealing +
+      " points of health. <br> You now have " +
+      currentPotion +
+      " Healing potions in your inventory.";
+  }
+  saveGame();
 }
 
 function run() {
@@ -130,7 +142,7 @@ function run() {
   monsterStats.style.display = "none";
   text.innerText =
     "You run away from the fight, barley escaping with your life.";
-    saveGame();
+  saveGame();
 }
 
 function getMonsterAttackValue(level) {
@@ -158,7 +170,7 @@ function defeatMonster() {
   xpText.innerText = xp;
 }
 
-function winGame () {
+function winGame() {
   update(locations[8]);
   button3.style.display = "none";
   button4.style.display = "none";

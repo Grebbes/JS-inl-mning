@@ -1,6 +1,6 @@
 window.addEventListener("DOMContentLoaded", () => {
-  const savedGame = JSON.parse(localStorage.getItem("gameData"))
-  if(savedGame){
+  const savedGame = JSON.parse(localStorage.getItem("gameData"));
+  if (savedGame) {
     const data = savedGame;
     xp = data.xp;
     health = data.health;
@@ -19,6 +19,7 @@ window.addEventListener("DOMContentLoaded", () => {
     goldText.innerText = gold;
     monsterHealthText.innerText = monsterHealth;
     potionText.innerText = currentPotion;
+    fullHealthText.innerText = maxHealth;
   }
 });
 
@@ -33,8 +34,8 @@ function saveGame() {
     fighting: fighting,
     monsterHealth: monsterHealth,
     inventory: inventory,
-    image: image,                                                                                                                                                                                                                                         
-  }
+    image: image,
+  };
   localStorage.setItem("gameData", JSON.stringify(gameData));
 }
 
@@ -42,8 +43,6 @@ function restartGame() {
   localStorage.removeItem("gameData");
   location.reload();
 }
-
-
 
 let xp = 0;
 let health = 100;
@@ -63,8 +62,9 @@ const button4 = document.querySelector("#button4");
 const text = document.querySelector("#text");
 const xpText = document.querySelector("#xp-Text");
 const healthText = document.querySelector("#health-Text");
+const fullHealthText = document.querySelector("#full-Health");
 const goldText = document.querySelector("#gold-Text");
-const potionText = document.querySelector("#potion-Text")
+const potionText = document.querySelector("#potion-Text");
 const monsterStats = document.querySelector("#monsterstats");
 const monsterHealthText = document.querySelector("#monster-Health");
 const monsterNameText = document.querySelector("#monster-Name");
@@ -95,7 +95,9 @@ const locations = [
   {
     name: "Armory",
     "button text": [
-      ` Buy ${weapons[currentWeapon + 1].name + ": " + weapons[currentWeapon].value}gold`,
+      ` Buy ${
+        weapons[currentWeapon + 1].name + ": " + weapons[currentWeapon].value
+      }gold`,
       "Buy armour(10gold)",
       "Go back to town square",
       "Sell weapon",
@@ -151,4 +153,3 @@ const locations = [
     text: "With a final, resounding strike, the orc warlord collapses, his fierce glare fading at last. Silence descends over the stronghold, broken only by the echo of your victory. You have faced the greatest threat and emerged triumphant, the battle is won, and the village and realm is safe... for now.",
   },
 ];
-
