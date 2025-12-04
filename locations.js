@@ -122,6 +122,7 @@ function buyWeapon() {
     let newWeapon = weapons[currentWeapon + 1];
     if (gold >= newWeapon.value) {
       currentWeapon++;
+      buyWeaponSound.play();
       inventory.push(newWeapon.name);
       gold -= newWeapon.value;
       goldText.innerText = gold;
@@ -159,6 +160,7 @@ function sellWeapon() {
   let weaponName = inventory.shift();
   const weapon = weapons.find((w) => w.name === weaponName);
   gold += weapon.value / 2;
+  sellWeaponSound.play();
   goldText.innerText = gold;
   text.innerText =
     "You just sold one of your weapons to the shop keeper. You now have a " +
@@ -171,6 +173,7 @@ function buyArmour() {
   if (gold >= 10) {
     health += 10;
     maxHealth += 10;
+    buyArmourSound.play();
     gold -= 10;
     goldText.innerText = gold;
     healthText.innerText = health;
@@ -180,6 +183,7 @@ function buyArmour() {
   } else {
     text.innerText = "You don't have enough gold for that.";
   }
+  
   saveGame();
 }
 
@@ -190,6 +194,7 @@ function buyPotion() {
   }
 
   currentPotion++;
+  buyPotionSound.play();
   gold -= 25;
   goldText.innerText = gold;
   potionText.innerText = currentPotion;

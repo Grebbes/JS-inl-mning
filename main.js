@@ -75,6 +75,10 @@ const battleMusic = new Audio("sound/battle.mp3");
 const takingDmgSound = new Audio("sound/takingdmg.mp3");
 const dyingSound = new Audio("sound/dying.mp3");
 const drinkSound = new Audio("sound/drinkpot.mp3");
+const buyPotionSound  = new Audio("sound/buypot.mp3");
+const buyArmourSound = new Audio("sound/buyarmour.mp3");
+const buyWeaponSound = new Audio("sound/buyweapon.mp3");
+const sellWeaponSound = new Audio("sound/sellweapon.mp3");
 const weapons = [
   { name: "Stick", power: 5, value: 10 },
   { name: "Rusty sword", power: 15, value: 30 },
