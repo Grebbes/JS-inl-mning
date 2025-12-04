@@ -18,6 +18,12 @@ function goTown() {
 
   changeBackground.style.backgroundImage = `url(Images/image${(image = 3)}.png)`;
   update(locations[0]);
+  beforeBattleMusic.pause();
+  beforeBattleMusic.currentTime = 0;
+  battleMusic.pause();
+  battleMusic.currentTime = 0;
+  marketSound.play();
+  shopSound.play();
   button3.style.display = "block";
   button4.style.display = "block";
   saveGame();
@@ -84,6 +90,13 @@ function goHunt() {
   changeBackground.style.backgroundImage = `url(Images/image${(image = 6)}.png)`;
 
   update(locations[3]);
+  marketSound.pause();
+  marketSound.currentTime = 0;
+  shopSound.pause();
+  shopSound.currentTime = 0;
+  battleMusic.pause();
+  battleMusic.currentTime = 0;
+  beforeBattleMusic.play();
   button3.style.display = "block";
   button4.style.display = "block";
 }
@@ -93,6 +106,13 @@ function goRaid() {
   changeBackground.style.backgroundImage = `url(Images/image${(image = 10)}.png)`;
 
   update(locations[4]);
+  marketSound.pause();
+  marketSound.currentTime = 0;
+  shopSound.pause();
+  shopSound.currentTime = 0;
+  battleMusic.pause();
+  battleMusic.currentTime = 0;
+  beforeBattleMusic.play();
   button3.style.display = "block";
   button4.style.display = "none";
 }

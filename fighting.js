@@ -43,24 +43,21 @@ function goFight() {
   monsterNameText.innerText = monsters[fighting].name;
   monsterHealth = monsters[fighting].health;
   monsterHealthText.innerText = monsterHealth;
-  console.log("fighting");
+  marketSound.pause();
+  marketSound.currentTime = 0;
+  shopSound.pause();
+  shopSound.currentTime = 0;
+  beforeBattleMusic.pause();
+  beforeBattleMusic.currentTime = 0;
+  battleMusic.play();
 }
 
 function attack() {
   text.innerText = " You attack with your " + weapons[currentWeapon].name + ".";
   health -= getMonsterAttackValue(monsters[fighting].level);
+  takingDmgSound.play();
 
-  if (getMonsterAttackValue(monsters[fighting].level) <= 0) {
-    const damage = Math.ceil(Math.random() * weapons[currentWeapon].power);
-    monsterHealth -= damage;
-    monsterHealthText.innerText = monsterHealth;
-    text.innerText =
-      "you dodge the attack but still deal but still manage to hurt the" +
-      monsters[fighting].name +
-      " dealing " +
-      damage +
-      " damage";
-  } else if (isMonsterHit()) {
+  if (isMonsterHit()) {
     const damage = Math.ceil(Math.random() * weapons[currentWeapon].power);
     monsterHealth -= damage;
     monsterHealthText.innerText = monsterHealth;
@@ -108,6 +105,7 @@ function drinkPotion() {
   } else if (health === maxHealth) {
     text.innerText = "I dont need healing right now";
   } else if (health + potionHealing >= maxHealth) {
+    drinkSound.play();
     health = maxHealth;
     currentPotion--;
     healthText.innerText = health;
@@ -121,6 +119,7 @@ function drinkPotion() {
       currentPotion +
       " Healing potions in your inventory.";
   } else {
+    drinkSound.play();
     health += potionHealing;
     currentPotion--;
     healthText.innerText = health;
@@ -155,6 +154,9 @@ function isMonsterHit() {
 }
 
 function lose() {
+  battleMusic.pause();
+  battleMusic.currentTime = 0;
+  dyingSound.play();
   update(locations[7]);
   button3.style.display = "none";
   button4.style.display = "none";

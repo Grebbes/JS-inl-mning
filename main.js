@@ -68,6 +68,13 @@ const potionText = document.querySelector("#potion-Text");
 const monsterStats = document.querySelector("#monsterstats");
 const monsterHealthText = document.querySelector("#monster-Health");
 const monsterNameText = document.querySelector("#monster-Name");
+const marketSound = new Audio("sound/market.mp3");
+const shopSound = new Audio("sound/shop.mp3");
+const beforeBattleMusic = new Audio("sound/beforebattle.mp3");
+const battleMusic = new Audio("sound/battle.mp3");
+const takingDmgSound = new Audio("sound/takingdmg.mp3");
+const dyingSound = new Audio("sound/dying.mp3");
+const drinkSound = new Audio("sound/drinkpot.mp3");
 const weapons = [
   { name: "Stick", power: 5, value: 10 },
   { name: "Rusty sword", power: 15, value: 30 },
@@ -107,7 +114,7 @@ const locations = [
   },
   {
     name: "Potion Shop",
-    "button text": ["Buy health potion", "Go back to town square"],
+    "button text": ["Buy health potion 25gold", "Go back to town square"],
     "button function": [buyPotion, goTown],
     text: "You step into the potion shop, greeted by swirling scents of herbs and faintly glowing vials. A soft, knowing gaze meets yours, an older woman stands behind the counter. There is something otherworldly about her, as if she sees more then she lets on.‘Welcome, dear one,’ she murmurs, her voice warm and strangely enchanting. ‘Seeking a potion… or simply wandering where curiosity leads you?’",
   },
