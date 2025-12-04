@@ -1,3 +1,8 @@
+/**
+ * Loads the savedGame data from localStorage
+ * Restores the players stats and inventory
+ * @listens window#DOMContentLoaded
+ */
 window.addEventListener("DOMContentLoaded", () => {
   const savedGame = JSON.parse(localStorage.getItem("gameData"));
   if (savedGame) {
@@ -22,7 +27,10 @@ window.addEventListener("DOMContentLoaded", () => {
     fullHealthText.innerText = maxHealth;
   }
 });
-
+/**
+ * saves the current game to localStorage
+ * stores the players stats and inventory
+ */
 function saveGame() {
   const gameData = {
     xp: xp,
@@ -38,21 +46,35 @@ function saveGame() {
   };
   localStorage.setItem("gameData", JSON.stringify(gameData));
 }
-
+/**
+ * restarts the game and clears the gameData from localStorage
+ */
 function restartGame() {
   localStorage.removeItem("gameData");
   location.reload();
 }
-
+/**
+ * The players stats and inventory
+ */
+/**@type {number} players start experience */
 let xp = 0;
+/**@type {number} players start and current health */
 let health = 100;
+/**@type {number} players max health */
 let maxHealth = 100;
+/**@type {number} players start and current gold */
 let gold = 50;
+/**@type {number} players current weapon index */
 let currentWeapon = 0;
+/**@type {number} players start and current potion  */
 let currentPotion = 0;
+/**@type {number} the index of the monster that the player is fighting */
 let fighting;
+/**@type {number} the health of the monster that is being fought */
 let monsterHealth;
+/**@type {string[]} the players start and current inventory */
 let inventory = ["Stick"];
+/**@type {number} the current background image. used for changing the scenery of where the player is */
 let image = 0;
 
 const button1 = document.querySelector("#button1");
@@ -79,18 +101,40 @@ const buyPotionSound  = new Audio("sound/buypot.mp3");
 const buyArmourSound = new Audio("sound/buyarmour.mp3");
 const buyWeaponSound = new Audio("sound/buyweapon.mp3");
 const sellWeaponSound = new Audio("sound/sellweapon.mp3");
+/**
+ * @typedef {object} Weapon 
+ * @property {string} name name of the weapon
+ * @property {number} power how strong the weapon is
+ * @property {number} value how much the weapon costs and will sell for
+*/
+/**@type {Weapon[]} the available weapons in the game */
 const weapons = [
   { name: "Stick", power: 5, value: 10 },
   { name: "Rusty sword", power: 15, value: 30 },
   { name: "Claymore", power: 30, value: 50 },
   { name: "Sword of Heroes", power: 50, value: 100 },
 ];
+/**
+ * @typedef {object} Monster
+ * @property {string} name name of the monster
+ * @property {number} level the level of the monster. used later for damage calc
+ * @property {number} health the health of the monster
+ */
+/**@type {Monster[]} available monsters in the game */
 const monsters = [
   { name: "Rabid beast", level: 3, health: 25 },
   { name: "Orc raider", level: 7, health: 50 },
   { name: "Orc shaman", level: 12, health: 70 },
   { name: "Orc warlord", level: 50, health: 400 },
 ];
+/**
+ * @typedef {object} Location
+ * @property {string} name name of the location
+ * @property {string[]} button text inside the buttons that appear in the location
+ * @property {function[]} button function for each button
+ * @property {string} text the text that appears at the bottom for the player to read
+ */
+/**@type {Location[]} available locations in the game */
 const locations = [
   {
     name: "Town Square",
