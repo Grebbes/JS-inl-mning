@@ -1,7 +1,7 @@
 # The Town adventure
 
 ## Text based adventure game
-<li>This is game i made for a school project, really fun and learned allot</li>
+<li>This is game a i made for a school project, really fun and learned allot.</li>
 <li>The game is a text based clicking game.</li>
 <li>You are able to fight monsters buy new weapons and potions, and eventually kill the boss!</li>
 
