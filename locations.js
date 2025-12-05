@@ -1,3 +1,9 @@
+/**
+ * changes the scenario if the player does not help
+ * and shows the ending text and background for leaving the town.
+ * @function dontHelp
+ * @returns {void}
+ */
 function dontHelp() {
   let changeBackground = document.body;
   changeBackground.style.backgroundImage = `url(Images/image${(image = 2)}.png)`;
@@ -12,6 +18,13 @@ function dontHelp() {
   }
 }
 
+/**
+ * changes the scenatio to the town
+ * updates the players ui
+ * and shows what is available in the town
+ * @function goTown
+ * @returns {void}
+ */
 function goTown() {
   let changeBackground = document.body;
   monsterStats.style.display = "none";
@@ -32,6 +45,15 @@ function goTown() {
 button1.onclick = goTown;
 button2.onclick = dontHelp;
 
+/**
+ * updates the players ui based on the location he is in.
+ * @function update
+ * @param {object} location the location object
+ * @param {string} location ["button text"] the text for the buttons
+ * @param {function[]} location ["button function"] the function for each button
+ * @param {string} location.text the text that is displayed at the bottom
+ * @returns {void}
+ */
 function update(location) {
   button1.innerText = location["button text"][0];
   button2.innerText = location["button text"][1];
@@ -44,6 +66,12 @@ function update(location) {
   text.innerHTML = location.text;
 }
 
+/**
+ * changes the scenario to the armory
+ * updates buttons and text
+ * @function goArmory
+ * @returns {void}
+ */
 function goArmory() {
   let changeBackground = document.body;
   monsterStats.style.display = "none";
@@ -75,6 +103,12 @@ function goArmory() {
   saveGame();
 }
 
+/**
+ * changes the scenario to the potion shop 
+ * updates buttons and text
+ * @function goPotionShop
+ * @returns {void}
+ */
 function goPotionShop() {
   let changeBackground = document.body;
   monsterStats.style.display = "none";
@@ -85,6 +119,12 @@ function goPotionShop() {
   button4.style.display = "none";
 }
 
+/**
+ * changes the scenario to show different monsters player can fight
+ * updates buttons and text
+ * @function goHunt
+ * @returns {void}
+ */
 function goHunt() {
   let changeBackground = document.body;
   changeBackground.style.backgroundImage = `url(Images/image${(image = 6)}.png)`;
@@ -101,6 +141,12 @@ function goHunt() {
   button4.style.display = "block";
 }
 
+/**
+ * changes the scenario to show if player wants to fight final boss
+ * updates buttons and text
+ * @function goRaid
+ * @returns {void}
+ */
 function goRaid() {
   let changeBackground = document.body;
   changeBackground.style.backgroundImage = `url(Images/image${(image = 10)}.png)`;
@@ -117,6 +163,13 @@ function goRaid() {
   button4.style.display = "none";
 }
 
+/**
+ * lets the player buy a new weapon if his current weapon index is less than the index of the weapons array
+ * upates players gold and inventory
+ * stops players from buying a weapon if he does now have enough gold or already has the best weapon
+ * @function buyWeapon
+ * @returns {void}
+ */
 function buyWeapon() {
   if (currentWeapon < weapons.length - 1) {
     let newWeapon = weapons[currentWeapon + 1];
@@ -146,6 +199,12 @@ function buyWeapon() {
   saveGame();
 }
 
+/**
+ * lets the player sell his first weapon in his inventory but not his only weapon
+ * uppdates gold and inventory
+ * @function sellWeapon
+ * @returns {void}
+ */
 function sellWeapon() {
   if (inventory.length === 1) {
     if (inventory[0] === "Sword of Heroes") {
@@ -169,6 +228,14 @@ function sellWeapon() {
   saveGame();
 }
 
+/**
+ * lets the player buy armour
+ * updates health and maxHealth
+ * updates gold
+ * prevents player from buying armour if not enough gold
+ * @function buyArmour
+ * @returns {void}
+ */
 function buyArmour() {
   if (gold >= 10) {
     health += 10;
@@ -187,6 +254,13 @@ function buyArmour() {
   saveGame();
 }
 
+/**
+ * lets the player buy Healing potions
+ * updates gold and currentPotion
+ * prevents player from buying potion if not enough gold
+ * @function buyPotion
+ * @returns {void}
+ */
 function buyPotion() {
   if (gold < 25) {
     text.innerText = "You dont have enough gold for that.";

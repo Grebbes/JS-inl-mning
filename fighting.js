@@ -1,3 +1,9 @@
+/**
+ * lets the player fight the rabid beast
+ * updates background and player ui
+ * @function fightBeast
+ * @returns {void}
+ */
 function fightBeast() {
   let changeBackground = document.body;
   changeBackground.style.backgroundImage = `url(Images/image${(image = 7)}.png)`;
@@ -7,7 +13,12 @@ function fightBeast() {
   update(locations[5]);
   text.innerText = "You are fighting a Rabid beast";
 }
-
+/**
+ * lets the player gith the orc raider
+ * updates background and ui
+ * @function fightRaider
+ * @returns {void}
+ */
 function fightRaider() {
   let changeBackground = document.body;
   changeBackground.style.backgroundImage = `url(Images/image${(image = 8)}.png)`;
@@ -17,7 +28,12 @@ function fightRaider() {
   update(locations[5]);
   text.innerText = "You are fighting a Orc Raider";
 }
-
+/**
+ * lets the player fight the orc shaman
+ * updates background and ui
+ * @function fightShaman
+ * @returns {void}
+ */
 function fightShaman() {
   let changeBackground = document.body;
   changeBackground.style.backgroundImage = `url(Images/image${(image = 9)}.png)`;
@@ -27,7 +43,12 @@ function fightShaman() {
   update(locations[5]);
   text.innerText = "You are fighting a Orc Shaman";
 }
-
+/**
+ * lets the player fight the orc  warlord
+ * updates background and ui
+ * @function fightWarlord
+ * @returns {void}
+ */
 function fightWarlord() {
   let changeBackground = document.body;
   changeBackground.style.backgroundImage = `url(Images/image${(image = 11)}.png)`;
@@ -37,7 +58,13 @@ function fightWarlord() {
   update(locations[5]);
   text.innerText = "You are fighting the Orc Warlord";
 }
-
+/**
+ * updates and shows the monsterstats dependent on who the players fights
+ * stops and resets the market and shop sound
+ * starts the battle music
+ * @function goFight
+ * @returns {void}
+ */
 function goFight() {
   monsterStats.style.display = "flex";
   monsterNameText.innerText = monsters[fighting].name;
@@ -52,9 +79,19 @@ function goFight() {
   battleMusic.play();
 }
 
+/**
+ * lets the player attack and deal damage based on the power of the weapon he has
+ * updates health of player if damage is taken. same for monster
+ * calculates damage taken based on monsters level
+ * plays takingDmg sound
+ * checks if player dies or defeats the monster
+ * @function attack
+ * @returns {void}
+ */
 function attack() {
   text.innerText = " You attack with your " + weapons[currentWeapon].name + ".";
-  health -= getMonsterAttackValue(monsters[fighting].level);
+  const monsterDamage = getMonsterAttackValue(monsters[fighting].level);
+  health -= monsterDamage 
   takingDmgSound.play();
 
   if (isMonsterHit()) {
@@ -67,7 +104,7 @@ function attack() {
       " <br> the " +
       monsters[fighting].name +
       " also deals " +
-      getMonsterAttackValue(monsters[fighting].level) +
+      monsterDamage +
       " damage to you!";
   } else {
     text.innerText =
@@ -76,7 +113,7 @@ function attack() {
       "<br> but the " +
       monsters[fighting].name +
       " still deals " +
-      getMonsterAttackValue(monsters[fighting].level) +
+      monsterDamage +
       " damage to you.";
   }
   healthText.innerText = health;
@@ -92,10 +129,25 @@ function attack() {
   saveGame();
 }
 
+/**
+ * lets the player click and dodge attack
+ * updates text
+ * @function dodge
+ * @returns {void}
+ */
 function dodge() {
   text.innerText = "You dodge the attack.";
 }
 
+/**
+ * lets the player drink a healing potion if he is bellow max health
+ * potion heals a random number between 25-50
+ * alse checks if current potion is equal or less than 0. if it is player can not drink a potion and updates text
+ * if player is at maxhealth he cannot drink
+ * plays drink sound
+ * @function drinkPotion
+ * @returns {void}
+ */
 function drinkPotion() {
   potion = 25;
   potionHealing = Math.ceil(Math.random() * potion + 25);
@@ -135,7 +187,12 @@ function drinkPotion() {
   }
   saveGame();
 }
-
+/**
+ * lets the player go back to town if he is close to dying
+ * updates text
+ * @function run 
+ * @returns {void}
+ */
 function run() {
   goTown();
   monsterStats.style.display = "none";
@@ -144,15 +201,30 @@ function run() {
   saveGame();
 }
 
+/**
+ * calculates the monsters hit rate and damage based on level and player xp.
+ * @function getMonsterAttackValue
+ * @param {number} level the level of the monster
+ * @returns {number} the damage the monster deals
+ */
 function getMonsterAttackValue(level) {
   const hit = level * 3 - Math.round(Math.random() * xp);
   return hit > 0 ? hit : 0;
 }
-
+/**
+ * calculates the players hit rate 
+ * @function isMonsterHit
+ * @returns {boolean} true or false
+ */
 function isMonsterHit() {
   return Math.random() > 0.3 || health < 20;
 }
-
+/**
+ * tells the player that he dies
+ * updates buttons and text
+ * @function lose
+ * @returns {void}
+ */
 function lose() {
   battleMusic.pause();
   battleMusic.currentTime = 0;
@@ -161,7 +233,13 @@ function lose() {
   button3.style.display = "none";
   button4.style.display = "none";
 }
-
+/**
+ * tells the player that he defeats the monster
+ * updates buttons and text
+ * updates gold and xp 
+ * @function defeatMonster
+ * @returns {void}
+ */
 function defeatMonster() {
   update(locations[6]);
   button3.style.display = "none";
@@ -171,7 +249,12 @@ function defeatMonster() {
   goldText.innerText = gold;
   xpText.innerText = xp;
 }
-
+/**
+ * tells the player that he won the game
+ * updates buttons and text
+ * @function winGame
+ * @returns {void}
+ */
 function winGame() {
   update(locations[8]);
   button3.style.display = "none";
